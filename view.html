@@ -7,18 +7,21 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- 눈 -->
+    <!-- 눈 내리는 레이어 -->
     <div class="snow-layer slow"></div>
     <div class="snow-layer"></div>
     <div class="snow-layer fast"></div>
 
-    <!-- 배경 음악 -->
+    <!-- 🎵 배경 음악 -->
     <audio id="bgm" loop>
         <source src="christmas.mp3" type="audio/mpeg" />
     </audio>
 
-    <div class="center-wrapper">
-        <h1 class="page-title"><span>당신을 위한 크리스마스 편지</span></h1>
+    <div class="center-wrapper view-layout">
+        <h1 class="page-title">당신을 위한 크리스마스 편지</h1>
+
+        <!-- 선물 받는 손 아이콘 -->
+        <img src="gift-hand.png" alt="선물을 건네는 손" class="gift-hand" />
 
         <!-- 공유 링크 + 복사 버튼 -->
         <div class="link-box">
@@ -26,11 +29,8 @@
             <button class="btn btn-small" id="copyBtn">링크 복사</button>
         </div>
 
-        <!-- 처음에 잠깐 보여줄 편지 내용 박스 -->
-        <div class="floating-message" id="floatingMessage"></div>
-
-        <!-- 봉투 + 편지지 -->
-        <div class="envelope-wrapper">
+        <!-- 봉투 + 편지지 (클릭해서 열기) -->
+        <div class="envelope-wrapper" id="envelope">
             <div class="envelope-base"></div>
             <div class="envelope-flap"></div>
             <div class="letter-paper" id="letterPaper">
@@ -39,6 +39,8 @@
                 <div class="letter-from" id="letterFrom"></div>
             </div>
         </div>
+
+        <p class="envelope-hint">봉투를 눌러서 편지를 열어보세요 💌</p>
 
         <button class="btn" onclick="goWrite()">나도 편지 만들기 ✍️</button>
     </div>
@@ -53,40 +55,31 @@
         const letterToEl = document.getElementById("letterTo");
         const letterMsgEl = document.getElementById("letterMessage");
         const letterFromEl = document.getElementById("letterFrom");
-        const floatingMessageEl = document.getElementById("floatingMessage");
-        const letterPaperEl = document.getElementById("letterPaper");
 
-        // 받는 사람
         if (toName) {
             letterToEl.textContent = `To. ${toName}`;
         } else {
             letterToEl.textContent = "To. 당신";
         }
 
-        // 줄바꿈 유지한 메시지
         const formattedMsg = (message || "편지 내용이 없어요 😢").replace(
             /\n/g,
             "<br />"
         );
-
-        // 처음에는 floatingMessage에 내용 표시
-        floatingMessageEl.innerHTML =
-            `<strong>${letterToEl.textContent}</strong><br /><br />` +
-            formattedMsg +
-            (fromName ? `<br /><br /><span style="float:right;">From. ${fromName}</span>` : "");
-
-        // 나중에 편지지 안에도 같은 내용 넣기
         letterMsgEl.innerHTML = formattedMsg;
+
         if (fromName) {
             letterFromEl.textContent = `From. ${fromName}`;
         }
 
-        // floatingMessage 애니메이션이 끝난 뒤 편지지가 나타나도록
-        floatingMessageEl.addEventListener("animationend", (e) => {
-            if (e.animationName === "floatToEnvelope") {
-                floatingMessageEl.style.display = "none";
-                letterPaperEl.classList.add("show");
-            }
+        // 봉투 클릭해서 열기
+        const envelope = document.getElementById("envelope");
+        let isOpened = false;
+
+        envelope.addEventListener("click", () => {
+            if (isOpened) return;
+            isOpened = true;
+            envelope.classList.add("open");
         });
 
         // 공유 링크 표시
@@ -106,17 +99,20 @@
             }
         });
 
-        // BGM 자동 재생 시도 (막히면 첫 클릭 때 재생)
+        // 🎵 배경음악 재생
         const bgm = document.getElementById("bgm");
-        bgm.play().catch(() => {
-            document.body.addEventListener(
-                "click",
-                () => {
-                    bgm.play().catch(() => {});
-                },
-                { once: true }
-            );
-        });
+        if (bgm) {
+            bgm.volume = 0.6;
+            bgm.play().catch(() => {
+                document.body.addEventListener(
+                    "click",
+                    () => {
+                        bgm.play().catch(() => {});
+                    },
+                    { once: true }
+                );
+            });
+        }
 
         function goWrite() {
             window.location.href = "write.html";

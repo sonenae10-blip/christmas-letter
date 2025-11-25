@@ -26,7 +26,7 @@ body {
     overflow: hidden;
 }
 
-/* 메인 제목은 크리스마스 느낌 폰트 적용 */
+/* ===== 메인 제목 (크리스마스 땡땡이 텍스트) ===== */
 .page-title {
     font-family: "KirangHaerang", system-ui, sans-serif;
     font-size: 46px;
@@ -34,22 +34,18 @@ body {
     text-align: center;
     letter-spacing: 2px;
 
-    /* 🔴 글자 기본 색 (빨강) */
+    /* 🔴 글자 기본 색 (빨강) + 🟢 초록 땡땡이 패턴 */
     background-color: #ff3b3b;
-
-    /* 🟢 글자 안에 초록색 땡땡이 패턴 삽입 */
     background-image:
         radial-gradient(circle, #2ecc71 20%, transparent 21%),
         radial-gradient(circle, #2ecc71 20%, transparent 21%);
     background-size: 18px 18px;
     background-position: 0 0, 9px 9px;
 
-    /* 글자 내부 패턴만 보이게 */
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 
-    /* 눈송이 놓을 공간 확보 */
     display: inline-block;
     position: relative;
     padding: 0 10px;
@@ -75,47 +71,14 @@ body {
     margin-left: 10px;
 }
 
-/* 작은 화면에서 글씨 조금 줄이기 (있으면 그대로 두고, 없으면 추가) */
+/* 작은 화면에서 글씨 조금 줄이기 */
 @media (max-width: 380px) {
     .page-title {
         font-size: 28px;
     }
 }
 
-
-/* 네온 살짝 깜빡이는 애니메이션 */
-@keyframes neon-flicker {
-    0% {
-        text-shadow:
-            0 0 4px rgba(255, 255, 255, 0.5),
-            0 0 10px rgba(255, 77, 106, 0.4),
-            0 0 20px rgba(255, 212, 107, 0.4);
-        opacity: 0.9;
-    }
-    40% {
-        text-shadow:
-            0 0 6px rgba(255, 255, 255, 0.8),
-            0 0 16px rgba(255, 77, 106, 0.7),
-            0 0 32px rgba(255, 212, 107, 0.7);
-        opacity: 1;
-    }
-    60% {
-        text-shadow:
-            0 0 3px rgba(255, 255, 255, 0.4),
-            0 0 8px rgba(255, 77, 106, 0.3),
-            0 0 18px rgba(255, 212, 107, 0.3);
-        opacity: 0.85;
-    }
-    100% {
-        text-shadow:
-            0 0 7px rgba(255, 255, 255, 0.9),
-            0 0 18px rgba(255, 77, 106, 0.9),
-            0 0 36px rgba(108, 240, 255, 0.9);
-        opacity: 1;
-    }
-}
-
-/* 중앙 정렬 레이아웃 */
+/* ===== 중앙 정렬 레이아웃 ===== */
 .center-wrapper {
     display: flex;
     flex-direction: column;
@@ -127,13 +90,20 @@ body {
     padding: 20px;
 }
 
+/* view.html에서만 위 여백 줄이기 */
+.view-layout {
+    justify-content: flex-start;
+    padding-top: 16px;
+    gap: 12px;
+}
+
 /* 일반 텍스트 */
 .center-wrapper > p {
     opacity: 0.9;
     margin-bottom: 16px;
 }
 
-/* 공통 버튼 */
+/* ===== 공통 버튼 ===== */
 .btn {
     margin-top: 16px;
     padding: 10px 22px;
@@ -147,6 +117,7 @@ body {
     transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
     font-family: "KirangHaerang", system-ui, sans-serif;
 }
+
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
@@ -189,12 +160,8 @@ body {
 }
 
 @keyframes snowfall {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        transform: translate3d(0, 50%, 0);
-    }
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(0, 50%, 0); }
 }
 
 /* ===== index.html : 선물 상자 ===== */
@@ -204,9 +171,10 @@ body {
     height: auto;
     cursor: pointer;
     animation: gift-shake 1.3s ease-in-out infinite;
-    filter: invert(1) brightness(1000%); /* 선물 아이콘을 흰색으로 보이게 */
+    filter: invert(1) brightness(1000%);
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
+
 .gift-box.opening {
     animation: none;
     transform: scale(1.1) translateY(-10px);
@@ -215,24 +183,12 @@ body {
 
 /* 흔들리는 애니메이션 */
 @keyframes gift-shake {
-    0% {
-        transform: translateX(0) rotate(0deg);
-    }
-    20% {
-        transform: translateX(-4px) rotate(-2deg);
-    }
-    40% {
-        transform: translateX(4px) rotate(2deg);
-    }
-    60% {
-        transform: translateX(-3px) rotate(-1.5deg);
-    }
-    80% {
-        transform: translateX(3px) rotate(1.5deg);
-    }
-    100% {
-        transform: translateX(0) rotate(0deg);
-    }
+    0%   { transform: translateX(0) rotate(0deg); }
+    20%  { transform: translateX(-4px) rotate(-2deg); }
+    40%  { transform: translateX(4px) rotate(2deg); }
+    60%  { transform: translateX(-3px) rotate(-1.5deg); }
+    80%  { transform: translateX(3px) rotate(1.5deg); }
+    100% { transform: translateX(0) rotate(0deg); }
 }
 
 .gift-caption {
@@ -300,7 +256,7 @@ textarea {
     display: flex;
     gap: 8px;
     align-items: center;
-    margin: 8px 0 24px;
+    margin: 8px 0 16px;
     width: min(600px, 100%);
 }
 
@@ -314,14 +270,24 @@ textarea {
     color: #333;
 }
 
+/* 선물 받는 손 아이콘 */
+.gift-hand {
+    width: 140px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+    filter: invert(1) brightness(1000%);
+    opacity: 0.9;
+}
+
 /* ===== view.html : 봉투 + 편지지 ===== */
 
 .envelope-wrapper {
     position: relative;
     width: 320px;
     height: 220px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     perspective: 1000px;
+    cursor: pointer;
 }
 
 /* 봉투 바디 */
@@ -333,7 +299,7 @@ textarea {
     box-shadow: 0 16px 30px rgba(0, 0, 0, 0.6);
 }
 
-/* 봉투 덮개 */
+/* 봉투 덮개 (처음엔 닫힘) */
 .envelope-flap {
     position: absolute;
     left: 0;
@@ -344,19 +310,6 @@ textarea {
     border-radius: 16px 16px 60px 60px;
     transform-origin: top center;
     transform: rotateX(0deg);
-    animation: flap-open 1.8s ease-out forwards;
-}
-
-@keyframes flap-open {
-    0% {
-        transform: rotateX(0deg);
-    }
-    40% {
-        transform: rotateX(-100deg);
-    }
-    100% {
-        transform: rotateX(-120deg);
-    }
 }
 
 /* 편지지(안에 들어가는 종이) */
@@ -373,9 +326,8 @@ textarea {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
     opacity: 0;
     transform: translateY(40%);
-    transition: opacity 0.8s ease, transform 0.8s ease;
     /* 줄 있는 메모지 느낌 */
-    background-image: 
+    background-image:
         repeating-linear-gradient(
             to bottom,
             rgba(0, 0, 0, 0.04) 0,
@@ -383,11 +335,6 @@ textarea {
             transparent 1px,
             transparent 22px
         );
-}
-
-.letter-paper.show {
-    opacity: 1;
-    transform: translateY(-10%);
 }
 
 .letter-to {
@@ -411,53 +358,34 @@ textarea {
     color: #666;
 }
 
-/* 처음에 편지 내용이 잠깐 보여지는 박스 */
-.floating-message {
-    max-width: 420px;
-    background: rgba(255, 253, 245, 0.95);
-    color: #333;
-    border-radius: 18px;
-    padding: 16px 18px;
+/* 봉투 열릴 때 애니메이션 적용 */
+.envelope-wrapper.open .envelope-flap {
+    animation: flap-open 0.8s ease-out forwards;
+}
+
+.envelope-wrapper.open .letter-paper {
+    animation: paper-rise 0.7s 0.25s ease-out forwards;
+}
+
+/* 덮개가 탁! 열리는 모션 */
+@keyframes flap-open {
+    0%   { transform: rotateX(0deg); }
+    60%  { transform: rotateX(-115deg); }
+    80%  { transform: rotateX(-95deg); }
+    100% { transform: rotateX(-120deg); }
+}
+
+/* 편지지가 봉투 안에서 위로 쑥 올라오는 모션 */
+@keyframes paper-rise {
+    0%   { opacity: 0; transform: translateY(40%); }
+    100% { opacity: 1; transform: translateY(-10%); }
+}
+
+/* 봉투 아래 안내 문구 */
+.envelope-hint {
+    font-size: 13px;
+    opacity: 0.85;
     margin-bottom: 24px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-    text-align: left;
-    font-size: 14px;
-    line-height: 1.7;
-    animation:
-        floatIn 0.7s ease-out,
-        floatToEnvelope 1.6s 2s forwards;
-}
-
-@keyframes floatIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 아래쪽 봉투 쪽으로 작게 줄어들며 들어가는 느낌 */
-@keyframes floatToEnvelope {
-    0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(80px) scale(0.4);
-        opacity: 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .envelope-wrapper {
-        transform: scale(0.9);
-    }
-    .floating-message {
-        margin-inline: 10px;
-    }
 }
 
 /* ===========================
@@ -468,12 +396,11 @@ textarea {
 @media (max-width: 900px) {
     .center-wrapper {
         padding: 24px 16px;
-        justify-content: flex-start;
     }
 
     .page-title {
-        font-size: 26px;
-        margin-top: 24px;
+        font-size: 32px;
+        margin-top: 16px;
         text-align: center;
     }
 
@@ -516,14 +443,6 @@ textarea {
         font-size: 12px;
     }
 
-    /* 편지 내용 카드 & 봉투 크기 다운 */
-    .floating-message {
-        max-width: 100%;
-        margin-inline: 0;
-        font-size: 13px;
-        padding: 14px 14px;
-    }
-
     .envelope-wrapper {
         transform: scale(0.9);
         margin-bottom: 20px;
@@ -540,26 +459,18 @@ textarea {
     }
 
     .gift-hand {
-        width: 90px;
-        margin-bottom: 12px;
+        width: 100px;
+        margin-bottom: 8px;
     }
 }
 
 /* 아주 작은 화면 (아이폰 SE 등) */
 @media (max-width: 380px) {
-    .page-title {
-        font-size: 22px;
-    }
-
     .center-wrapper > p {
         font-size: 13px;
     }
 
     .envelope-wrapper {
         transform: scale(0.8);
-    }
-
-    .floating-message {
-        font-size: 12px;
     }
 }
