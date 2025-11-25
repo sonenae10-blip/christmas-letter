@@ -29,8 +29,90 @@ body {
 /* 메인 제목은 크리스마스 느낌 폰트 적용 */
 .page-title {
     font-family: "KirangHaerang", system-ui, sans-serif;
-    font-size: 30px;
-    margin-bottom: 12px;
+    font-size: 46px;
+    margin: 16px 0;
+    text-align: center;
+    letter-spacing: 2px;
+
+    /* 🔴 글자 기본 색 (빨강) */
+    background-color: #ff3b3b;
+
+    /* 🟢 글자 안에 초록색 땡땡이 패턴 삽입 */
+    background-image:
+        radial-gradient(circle, #2ecc71 20%, transparent 21%),
+        radial-gradient(circle, #2ecc71 20%, transparent 21%);
+    background-size: 18px 18px;
+    background-position: 0 0, 9px 9px;
+
+    /* 글자 내부 패턴만 보이게 */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    /* 눈송이 놓을 공간 확보 */
+    display: inline-block;
+    position: relative;
+    padding: 0 10px;
+}
+
+/* ❄ 좌우 눈송이 */
+.page-title::before,
+.page-title::after {
+    content: "❄";
+    position: relative;
+    top: -2px;
+    font-size: 28px;
+    color: white;
+    text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.6),
+        0 0 14px rgba(200, 240, 255, 0.8);
+}
+
+.page-title::before {
+    margin-right: 10px;
+}
+.page-title::after {
+    margin-left: 10px;
+}
+
+/* 작은 화면에서 글씨 조금 줄이기 (있으면 그대로 두고, 없으면 추가) */
+@media (max-width: 380px) {
+    .page-title {
+        font-size: 28px;
+    }
+}
+
+
+/* 네온 살짝 깜빡이는 애니메이션 */
+@keyframes neon-flicker {
+    0% {
+        text-shadow:
+            0 0 4px rgba(255, 255, 255, 0.5),
+            0 0 10px rgba(255, 77, 106, 0.4),
+            0 0 20px rgba(255, 212, 107, 0.4);
+        opacity: 0.9;
+    }
+    40% {
+        text-shadow:
+            0 0 6px rgba(255, 255, 255, 0.8),
+            0 0 16px rgba(255, 77, 106, 0.7),
+            0 0 32px rgba(255, 212, 107, 0.7);
+        opacity: 1;
+    }
+    60% {
+        text-shadow:
+            0 0 3px rgba(255, 255, 255, 0.4),
+            0 0 8px rgba(255, 77, 106, 0.3),
+            0 0 18px rgba(255, 212, 107, 0.3);
+        opacity: 0.85;
+    }
+    100% {
+        text-shadow:
+            0 0 7px rgba(255, 255, 255, 0.9),
+            0 0 18px rgba(255, 77, 106, 0.9),
+            0 0 36px rgba(108, 240, 255, 0.9);
+        opacity: 1;
+    }
 }
 
 /* 중앙 정렬 레이아웃 */
@@ -375,5 +457,109 @@ textarea {
     }
     .floating-message {
         margin-inline: 10px;
+    }
+}
+
+/* ===========================
+   모바일 반응형 튜닝
+   =========================== */
+
+/* 태블릿 & 작은 화면 공통 */
+@media (max-width: 900px) {
+    .center-wrapper {
+        padding: 24px 16px;
+        justify-content: flex-start;
+    }
+
+    .page-title {
+        font-size: 26px;
+        margin-top: 24px;
+        text-align: center;
+    }
+
+    .center-wrapper > p {
+        font-size: 14px;
+    }
+
+    .letter-container {
+        margin-top: 16px;
+        padding: 18px 16px;
+        border-radius: 20px;
+    }
+
+    textarea {
+        min-height: 180px;
+        font-size: 14px;
+    }
+
+    .gift-box {
+        width: 180px;
+    }
+}
+
+/* 진짜 모바일(폰) 기준 */
+@media (max-width: 600px) {
+    /* 링크박스를 세로로 쌓기 */
+    .link-box {
+        flex-direction: column;
+        align-items: stretch;
+        margin-top: 10px;
+    }
+
+    .link-box input {
+        font-size: 11px;
+    }
+
+    .btn.btn-small {
+        align-self: flex-end;
+        padding: 7px 16px;
+        font-size: 12px;
+    }
+
+    /* 편지 내용 카드 & 봉투 크기 다운 */
+    .floating-message {
+        max-width: 100%;
+        margin-inline: 0;
+        font-size: 13px;
+        padding: 14px 14px;
+    }
+
+    .envelope-wrapper {
+        transform: scale(0.9);
+        margin-bottom: 20px;
+    }
+
+    .letter-paper {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+
+    .letter-message {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .gift-hand {
+        width: 90px;
+        margin-bottom: 12px;
+    }
+}
+
+/* 아주 작은 화면 (아이폰 SE 등) */
+@media (max-width: 380px) {
+    .page-title {
+        font-size: 22px;
+    }
+
+    .center-wrapper > p {
+        font-size: 13px;
+    }
+
+    .envelope-wrapper {
+        transform: scale(0.8);
+    }
+
+    .floating-message {
+        font-size: 12px;
     }
 }
