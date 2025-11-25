@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>크리스마스 편지</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- 눈 -->
+    <div class="snow-layer slow"></div>
+    <div class="snow-layer"></div>
+    <div class="snow-layer fast"></div>
+
+    <div class="center-wrapper">
+        <h1 class="page-title"><span>크리스마스 선물 편지<span></h1>
+        <p>소중한 사람에게 보내는 특별한 편지를 선물해 보세요.</p>
+
+        <!-- 닫힌 선물 상자 아이콘 -->
+        <img
+            src="gift-closed.png"
+            alt="선물 상자"
+            class="gift-box"
+            id="giftBox"
+        />
+
+        <p class="gift-caption">선물 상자를 눌러 편지 상자를 열어볼까요? 🎁</p>
+    </div>
+
+    <script>
+        const giftBox = document.getElementById("giftBox");
+
+        giftBox.addEventListener("click", () => {
+            // 열린 상자 이미지로 변경
+            giftBox.src = "gift-open.png";
+            giftBox.classList.add("opening");
+
+            // 짧은 애니메이션 후 편지 작성 페이지로 이동
+            setTimeout(() => {
+                window.location.href = "write.html";
+            }, 900);
+        });
+    </script>
+</body>
+</html>
